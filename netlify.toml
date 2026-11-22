@@ -1,3 +1,10 @@
 [build]
-  publish = "."
+  publish = "public"
   functions = "netlify/functions"
+
+[build.environment]
+  # The database name and port are configuration, not credentials. Their short values
+  # (a common word and a port number) appear in many dependency files and would
+  # otherwise make secrets scanning fail every build. Host, user and password are
+  # still scanned.
+  SECRETS_SCAN_OMIT_KEYS = "TIDB_DATABASE,TIDB_PORT"
