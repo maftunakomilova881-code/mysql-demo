@@ -1,0 +1,7 @@
+{"name": "mysql-demo",
+  "version":"1.0..",
+  "tupe": "module",
+  "dpendencies":{
+    "mysql2': "^3.11.0"
+  }
+}
