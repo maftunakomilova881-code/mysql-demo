@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <title>MySQL demo</title>
+  <style>
+    body { font-family: sans-serif; padding: 20px; }
+    input, button { padding: 8px; font-size: 16px; }
+    ul { margin-top: 20px; }
+    li { margin-bottom: 8px; }
+  </style>
+</head>
+<body>
+  <h1>MySQL demo</h1>
+  <input type="text" id="nameInput" placeholder="Ism">
+  <button onclick="saveNote()">Saqlash</button>
+  <ul id="list"></ul>
+
+  <script>
+    async function loadNotes() {
+      const res = await fetch('/api/notes');
+      const data = await res.json();
+      const list = document.getElementById('list');
+      list.innerHTML = data.map(row => 
+        <li>${row.name} — ${new Date(row.created_at).toLocaleString()}</li>
+      ).join('');
+    }
+
+    async function saveNote() {
+      const input = document.getElementById('nameInput');
+      if (!input.value.trim()) return;
+      await fetch('/api/notes', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name: input.value })
+      });
+      input.value = '';
+      loadNotes();
+    }
+
+    loadNotes();
+  </script>
+</body>
+</html>
