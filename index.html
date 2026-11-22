@@ -21,9 +21,9 @@
       const res = await fetch('/api/notes');
       const data = await res.json();
       const list = document.getElementById('list');
-      list.innerHTML = data.map(row => 
-        <li>${row.name} — ${new Date(row.created_at).toLocaleString()}</li>
-      ).join('');
+      list.innerHTML = data.map(function(row) {
+        return '<li>' + row.name + ' — ' + new Date(row.created_at).toLocaleString() + '</li>';
+      }).join('');
     }
 
     async function saveNote() {
@@ -42,3 +42,8 @@
   </script>
 </body>
 </html>
+    
+
+
+  
+  
